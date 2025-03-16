@@ -6,7 +6,16 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+    domains: ['localhost'],
+    unoptimized: true, // For Cloudflare Pages deployment
+  },
 };
 
 module.exports = nextConfig;

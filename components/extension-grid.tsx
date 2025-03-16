@@ -37,8 +37,7 @@ export default function ExtensionGrid({ showCategoryFilter = true, searchTerm = 
     // Filter by search term
     const matchesSearch =
       searchTerm === "" ||
-      ext.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ext.description.toLowerCase().includes(searchTerm.toLowerCase())
+      ext.name.toLowerCase().includes(searchTerm.toLowerCase()) 
 
     return matchesCategory && matchesSearch
   })
