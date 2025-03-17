@@ -8,8 +8,8 @@ import Footer from "@/components/footer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Extensions 101 - Find the Best Browser Extensions",
-  description: "Browse, discover and find the best browser extensions to optimize your workflow.",
+  title: "Food 101 - Find the Most Delecious Food",
+  description: "Discover, find and cook the best Food to try on your own.",
 }
 
 export default function RootLayout({

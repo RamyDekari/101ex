@@ -37,7 +37,7 @@ export default function Hero({ onSearch, initialSearchTerm = "" }: HeroProps) {
         <div className="max-w-3xl mx-auto">
           {/* Featured Tag - customize with your own featured message */}
           <div className="inline-block bg-secondary rounded-full px-4 py-1 mb-8">
-            <span className="text-primary">✨ Listing Efficiency & Fun Extensions ✨</span>
+            <span className="text-primary">✨ Listing Efficiency & Fun Food ✨</span>
           </div>
 
           {/* Headline - main marketing message */}
@@ -45,19 +45,19 @@ export default function Hero({ onSearch, initialSearchTerm = "" }: HeroProps) {
             Work Less, <span className="text-primary">Create More.</span>
           </h1>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
-            Find the Best <span className="text-primary">Extensions.</span>
+            Find the Best <span className="text-primary">Food.</span>
           </h2>
 
           {/* Subheadline - supporting marketing message */}
           <p className="text-muted-foreground text-lg mb-12">
-            Browse Once, Optimize Forever: The Ultimate Extensions & Plugins Directory.
+            Browse Once, Optimize Forever: The Ultimate Food & Plugins Directory.
           </p>
 
-          {/* Search Bar - filters by extension name only */}
+          {/* Search Bar - filters by Food name only */}
           <div className="relative max-w-2xl mx-auto">
             <input
               type="text"
-              placeholder="Search extensions by name..."
+              placeholder="Search Food by name..."
               className="w-full bg-secondary border border-border rounded-lg py-3 px-4 pr-12 text-white focus:outline-none focus:ring-2 focus:ring-primary"
               value={searchTerm}
               onChange={handleSearchChange}

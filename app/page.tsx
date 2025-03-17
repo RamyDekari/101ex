@@ -2,26 +2,26 @@
 
 import { useState, useEffect } from "react"
 import Hero from "@/components/hero"
-import ExtensionCard from "@/components/extension-card"
 import Newsletter from "@/components/newsletter"
-import { extensions, platforms, pricingOptions } from "@/lib/data"
+import { Food, regions, timeCostOptions, foods  } from "@/lib/data"
 import { Button } from "@/components/ui/button"
 import ExpandableFilter from "@/components/expandable-filter"
 import CheckboxFilter from "@/components/checkbox-filter"
 import { RefreshCw } from "lucide-react"
+import FoodCard from "@/components/Food-card"
 
 export default function Home() {
   // State for search term
   const [searchTerm, setSearchTerm] = useState("")
 
-  // State for selected platforms
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([])
+  // State for selected regions
+  const [selectedregions, setSelectedregions] = useState<string[]>([])
 
-  // State for selected pricing options
-  const [selectedPricing, setSelectedPricing] = useState<string[]>([])
+  // State for selected timeCostOptions options
+  const [selectedtimeCostOptions, setSelectedtimeCostOptions] = useState<string[]>([])
 
-  // State for "Select All" platforms
-  const [selectAllPlatforms, setSelectAllPlatforms] = useState(false)
+  // State for "Select All" regions
+  const [selectAllregions, setSelectAllregions] = useState(false)
 
   // Handle search from Hero component (only filter by name)
   const handleSearch = (term: string) => {
@@ -31,61 +31,61 @@ export default function Home() {
   // Handle platform checkbox changes
   const handlePlatformChange = (platform: string, checked: boolean) => {
     if (checked) {
-      setSelectedPlatforms([...selectedPlatforms, platform])
+      setSelectedregions([...selectedregions, platform])
     } else {
-      setSelectedPlatforms(selectedPlatforms.filter((p) => p !== platform))
+      setSelectedregions(selectedregions.filter((p) => p !== platform))
     }
   }
 
-  // Handle pricing checkbox changes
-  const handlePricingChange = (pricing: string, checked: boolean) => {
+  // Handle timeCostOptions checkbox changes
+  const handletimeCostOptionsChange = (timeCostOptions: string, checked: boolean) => {
     if (checked) {
-      setSelectedPricing([...selectedPricing, pricing])
+      setSelectedtimeCostOptions([...selectedtimeCostOptions, timeCostOptions])
     } else {
-      setSelectedPricing(selectedPricing.filter((p) => p !== pricing))
+      setSelectedtimeCostOptions(selectedtimeCostOptions.filter((p) => p !== timeCostOptions))
     }
   }
 
-  // Handle "Select All" platforms checkbox
-  const handleSelectAllPlatforms = (checked: boolean) => {
-    setSelectAllPlatforms(checked)
+  // Handle "Select All" regions checkbox
+  const handleSelectAllregions = (checked: boolean) => {
+    setSelectAllregions(checked)
     if (checked) {
-      setSelectedPlatforms([...platforms])
+      setSelectedregions([...regions])
     } else {
-      setSelectedPlatforms([])
+      setSelectedregions([])
     }
   }
 
-  // Update "Select All" state when individual platforms change
+  // Update "Select All" state when individual regions change
   useEffect(() => {
-    if (selectedPlatforms.length === platforms.length) {
-      setSelectAllPlatforms(true)
+    if (selectedregions.length === regions.length) {
+      setSelectAllregions(true)
     } else {
-      setSelectAllPlatforms(false)
+      setSelectAllregions(false)
     }
-  }, [selectedPlatforms])
+  }, [selectedregions])
 
   // Reset all filters
   const resetFilters = () => {
     setSearchTerm("")
-    setSelectedPlatforms([])
-    setSelectedPricing([])
-    setSelectAllPlatforms(false)
+    setSelectedregions([])
+    setSelectedtimeCostOptions([])
+    setSelectAllregions(false)
   }
 
-  // Filter extensions based on search term, platforms, and pricing
-  const filteredExtensions = extensions.filter((ext) => {
+  // Filter Food based on search term, regions, and timeCostOptions
+  const filteredFood = foods.filter((food) => {
     // Filter by name (case insensitive)
-    const matchesSearch = searchTerm === "" || ext.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = searchTerm === "" || food.name.toLowerCase().includes(searchTerm.toLowerCase())
 
-    // Filter by platforms (if any selected)
+    // Filter by regions (if any selected)
     const matchesPlatform =
-      selectedPlatforms.length === 0 || ext.platforms.some((platform) => selectedPlatforms.includes(platform))
+      selectedregions.length === 0 || food.regions.some((platform) => selectedregions.includes(platform))
 
-    // Filter by pricing (if any selected)
-    const matchesPricing = selectedPricing.length === 0 || selectedPricing.includes(ext.pricing)
+    // Filter by timeCostOptions (if any selected)
+    const matchestimeCostOptions = selectedtimeCostOptions.length === 0 || selectedtimeCostOptions.includes(food.timeCost)
 
-    return matchesSearch && matchesPlatform && matchesPricing
+    return matchesSearch && matchesPlatform && matchestimeCostOptions
   })
 
   return (
@@ -93,7 +93,7 @@ export default function Home() {
       {/* Hero section with search functionality */}
       <Hero onSearch={handleSearch} />
 
-      {/* Filters and Extensions Grid */}
+      {/* Filters and Food Grid */}
       <section className="py-12">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -103,33 +103,33 @@ export default function Home() {
               <ExpandableFilter title="Select Tag">
                 {/* Select All option */}
                 <CheckboxFilter
-                  id="select-all-platforms"
+                  id="select-all-regions"
                   label="Select All"
-                  checked={selectAllPlatforms}
-                  onChange={handleSelectAllPlatforms}
+                  checked={selectAllregions}
+                  onChange={handleSelectAllregions}
                 />
 
                 {/* Individual platform options */}
-                {platforms.map((platform) => (
+                {regions.map((platform) => (
                   <CheckboxFilter
                     key={platform}
                     id={`platform-${platform}`}
                     label={platform}
-                    checked={selectedPlatforms.includes(platform)}
+                    checked={selectedregions.includes(platform)}
                     onChange={(checked) => handlePlatformChange(platform, checked)}
                   />
                 ))}
               </ExpandableFilter>
 
-              {/* Pricing Filter */}
+              {/* timeCostOptions Filter */}
               <ExpandableFilter title="Filter">
-                {pricingOptions.map((option) => (
+                {timeCostOptions.map((option) => (
                   <CheckboxFilter
                     key={option}
-                    id={`pricing-${option}`}
+                    id={`timeCostOptions-${option}`}
                     label={option}
-                    checked={selectedPricing.includes(option)}
-                    onChange={(checked) => handlePricingChange(option, checked)}
+                    checked={selectedtimeCostOptions.includes(option)}
+                    onChange={(checked) => handletimeCostOptionsChange(option, checked)}
                   />
                 ))}
               </ExpandableFilter>
@@ -144,12 +144,12 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Extensions Grid */}
+            {/* Food Grid */}
             <div className="md:col-span-3">
-              {/* Show message when no extensions match filters */}
-              {filteredExtensions.length === 0 ? (
+              {/* Show message when no Food match filters */}
+              {filteredFood.length === 0 ? (
                 <div className="text-center py-12 bg-secondary rounded-lg">
-                  <p className="text-muted-foreground text-lg">No extensions found matching your criteria.</p>
+                  <p className="text-muted-foreground text-lg">No Food found matching your criteria.</p>
                   <Button
                     variant="outline"
                     className="mt-4 bg-primary text-white hover:bg-primary/90"
@@ -160,14 +160,14 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {filteredExtensions.map((extension) => (
-                    <ExtensionCard key={extension.id} extension={extension} />
+                  {filteredFood.map((Food) => (
+                    <FoodCard key={Food.id} Food={Food} />
                   ))}
                 </div>
               )}
 
-              {/* Pagination - only show if there are extensions */}
-              {filteredExtensions.length > 0 && (
+              {/* Pagination - only show if there are Food */}
+              {filteredFood.length > 0 && (
                 <div className="flex justify-center mt-12">
                   <div className="flex gap-2">
                     <Button variant="outline" className="bg-secondary text-white hover:bg-secondary/80 w-10 h-10 p-0">

@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { extensions, categories } from "@/lib/data"
-import ExtensionCard from "@/components/extension-card"
+import { Food, categories, foods  } from "@/lib/data"
 import Newsletter from "@/components/newsletter"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, Check, Filter } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import FoodCard from "@/components/Food-card"
 
 // Sort options for the dropdown
 const sortOptions = [
@@ -24,23 +24,23 @@ export default function CategoryPage() {
   const [sortOption, setSortOption] = useState(sortOptions[0])
   const [searchTerm, setSearchTerm] = useState("")
 
-  // Filter extensions based on selected category and search term
-  const filteredExtensions = extensions.filter((ext) => {
+  // Filter Food based on selected category and search term
+  const filteredFood = foods.filter((food) => {
     // Filter by category
     const matchesCategory =
-      selectedCategory === "All" || ext.category === selectedCategory || ext.tags.includes(selectedCategory)
+      selectedCategory === "All" || food.category === selectedCategory || food.tags.includes(selectedCategory)
 
     // Filter by search term (if any)
     const matchesSearch =
       searchTerm === "" ||
-      ext.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ext.description.toLowerCase().includes(searchTerm.toLowerCase())
+      food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      food.description.toLowerCase().includes(searchTerm.toLowerCase())
 
     return matchesCategory && matchesSearch
   })
 
-  // Sort extensions based on selected sort option
-  const sortedExtensions = [...filteredExtensions].sort((a, b) => {
+  // Sort Food based on selected sort option
+  const sortedFood = [...filteredFood].sort((a, b) => {
     switch (sortOption.value) {
       case "time-asc":
         return new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime()
@@ -141,22 +141,22 @@ export default function CategoryPage() {
         </div>
       </section>
 
-      {/* Extensions Grid */}
+      {/* Food Grid */}
       <section className="py-12">
         <div className="container-custom">
-          {/* Extensions Grid */}
+          {/* Food Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedExtensions.length > 0 ? (
-              sortedExtensions.map((extension) => <ExtensionCard key={extension.id} extension={extension} />)
+            {sortedFood.length > 0 ? (
+              sortedFood.map((Food) => <FoodCard key={Food.id} Food={Food} />)
             ) : (
               <div className="col-span-full text-center py-12">
-                <p className="text-muted-foreground text-lg">No extensions found matching your criteria.</p>
+                <p className="text-muted-foreground text-lg">No Food found matching your criteria.</p>
               </div>
             )}
           </div>
 
           {/* Pagination */}
-          {sortedExtensions.length > 0 && (
+          {sortedFood.length > 0 && (
             <div className="flex justify-center mt-12">
               <div className="flex gap-2">
                 <Button variant="outline" className="bg-secondary text-white hover:bg-secondary/80 w-10 h-10 p-0">

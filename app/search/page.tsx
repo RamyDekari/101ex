@@ -4,8 +4,8 @@ import type React from "react"
 
 import { useState } from "react"
 import { Search } from "lucide-react"
-import ExtensionGrid from "@/components/extension-grid"
 import Newsletter from "@/components/newsletter"
+import FoodGrid from "@/components/Food-grid"
 
 export default function SearchPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -19,13 +19,13 @@ export default function SearchPage() {
     <>
       <div className="container-custom py-16">
         {/* Page title */}
-        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">Search Extensions</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">Search Food</h1>
 
         {/* Search input */}
         <div className="relative max-w-2xl mx-auto mb-12">
           <input
             type="text"
-            placeholder="Search extensions by name or description..."
+            placeholder="Search Food by name or description..."
             className="w-full bg-secondary border border-border rounded-lg py-3 px-4 pr-12 text-white focus:outline-none focus:ring-2 focus:ring-primary"
             value={searchTerm}
             onChange={handleSearchChange}
@@ -36,8 +36,8 @@ export default function SearchPage() {
         </div>
       </div>
 
-      {/* Extension grid with search filtering */}
-      <ExtensionGrid searchTerm={searchTerm} />
+      {/* Food grid with search filtering */}
+      <FoodGrid searchTerm={searchTerm} />
 
       {/* Newsletter section */}
       <Newsletter />

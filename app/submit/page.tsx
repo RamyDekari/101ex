@@ -4,7 +4,7 @@ export default function SubmitPage() {
   return (
     <div className="container-custom py-16">
       {/* Page title */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">Submit Extension</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">Submit Food</h1>
 
       {/* Placeholder content - customize as needed */}
       <div className="bg-secondary rounded-lg p-12 text-center">

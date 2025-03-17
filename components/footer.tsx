@@ -11,7 +11,7 @@ export default function Footer() {
             <div className="bg-primary w-8 h-8 rounded flex items-center justify-center">
               <span className="text-white font-bold">e</span>
             </div>
-            <span className="text-white text-xl font-bold">Extensions 101</span>
+            <span className="text-white text-xl font-bold">Food 101</span>
           </div>
           <p className="text-muted-foreground">Unlock Efficiency & Joy</p>
 
@@ -68,8 +68,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-muted-foreground hover:text-white">
-                  Pricing
+                <Link href="/timeCostOptions" className="text-muted-foreground hover:text-white">
+                  timeCostOptions
                 </Link>
               </li>
               <li>

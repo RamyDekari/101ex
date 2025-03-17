@@ -9,7 +9,16 @@ import {
   AlertCircle,
 } from "lucide-react"
 
+import { foods } from "../../lib/data" // Add this import
+
+
 export default function DashboardPage() {
+
+// Get top rated foods sorted by rating
+const popularFoods = [...foods]
+.sort((a, b) => b.rating - a.rating)
+.slice(0, 5)
+
   return (
     <div className="container-custom">
       {/* Page title */}
@@ -35,12 +44,12 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Total Extensions Card */}
+        {/* Total Food Card */}
         <div className="bg-card rounded-lg p-6 border border-border">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <p className="text-muted-foreground text-sm">Total Extensions</p>
-              <h3 className="text-2xl font-bold">1,245</h3>
+              <p className="text-muted-foreground text-sm">Total Recipes</p>
+              <h3 className="text-2xl font-bold">{foods.length}</h3>
             </div>
             <div className="bg-purple-500/20 p-2 rounded-lg">
               <ShoppingCart className="h-6 w-6 text-purple-500" />
@@ -48,8 +57,8 @@ export default function DashboardPage() {
           </div>
           <div className="flex items-center text-green-500">
             <ArrowUpRight className="h-4 w-4 mr-1" />
-            <span className="text-sm font-medium">8% increase</span>
-            <span className="text-xs text-muted-foreground ml-1">vs last month</span>
+            <span className="text-sm font-medium">{Math.round(((foods.length - 9)/9 * 100))}% increase</span>
+            <span className="text-xs text-muted-foreground ml-1">vs initial release</span>
           </div>
         </div>
 
@@ -58,7 +67,9 @@ export default function DashboardPage() {
           <div className="flex justify-between items-start mb-4">
             <div>
               <p className="text-muted-foreground text-sm">Average Rating</p>
-              <h3 className="text-2xl font-bold">4.7</h3>
+              <h3 className="text-2xl font-bold">
+                {(foods.reduce((sum, food) => sum + food.rating, 0) / foods.length).toFixed(1)}
+              </h3>
             </div>
             <div className="bg-yellow-500/20 p-2 rounded-lg">
               <Star className="h-6 w-6 text-yellow-500" />
@@ -66,28 +77,30 @@ export default function DashboardPage() {
           </div>
           <div className="flex items-center text-green-500">
             <ArrowUpRight className="h-4 w-4 mr-1" />
-            <span className="text-sm font-medium">0.2 increase</span>
-            <span className="text-xs text-muted-foreground ml-1">vs last month</span>
+            <span className="text-sm font-medium">0.4 increase</span>
+            <span className="text-xs text-muted-foreground ml-1">vs last quarter</span>
           </div>
         </div>
 
         {/* Revenue Card */}
         <div className="bg-card rounded-lg p-6 border border-border">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <p className="text-muted-foreground text-sm">Revenue</p>
-              <h3 className="text-2xl font-bold">$42,582</h3>
-            </div>
-            <div className="bg-green-500/20 p-2 rounded-lg">
-              <TrendingUp className="h-6 w-6 text-green-500" />
-            </div>
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <p className="text-muted-foreground text-sm">Total Reviews</p>
+            <h3 className="text-2xl font-bold">
+              {foods.reduce((sum, food) => sum + food.reviews, 0)}
+            </h3>
           </div>
-          <div className="flex items-center text-red-500">
-            <ArrowDownRight className="h-4 w-4 mr-1" />
-            <span className="text-sm font-medium">3% decrease</span>
-            <span className="text-xs text-muted-foreground ml-1">vs last month</span>
+          <div className="bg-green-500/20 p-2 rounded-lg">
+            <TrendingUp className="h-6 w-6 text-green-500" />
           </div>
         </div>
+        <div className="flex items-center text-green-500">
+          <ArrowUpRight className="h-4 w-4 mr-1" />
+          <span className="text-sm font-medium">22% increase</span>
+          <span className="text-xs text-muted-foreground ml-1">vs last month</span>
+        </div>
+      </div>
       </div>
 
       {/* Charts and tables section */}
@@ -129,17 +142,15 @@ export default function DashboardPage() {
         {/* Recent Activity - right column */}
         <div className="bg-card rounded-lg p-6 border border-border">
           <h3 className="text-lg font-bold mb-4">Recent Activity</h3>
-
           <div className="space-y-4">
-            {/* Activity items */}
             <div className="flex items-start gap-3 pb-4 border-b border-border">
               <div className="bg-green-500/20 p-1.5 rounded-full">
                 <Users className="h-4 w-4 text-green-500" />
               </div>
               <div>
-                <p className="text-sm font-medium">New user registered</p>
-                <p className="text-xs text-muted-foreground">John Doe created an account</p>
-                <p className="text-xs text-muted-foreground mt-1">2 minutes ago</p>
+                <p className="text-sm font-medium">New recipe added</p>
+                <p className="text-xs text-muted-foreground">Butter Chicken was submitted</p>
+                <p className="text-xs text-muted-foreground mt-1">2 hours ago</p>
               </div>
             </div>
 
@@ -148,9 +159,9 @@ export default function DashboardPage() {
                 <ShoppingCart className="h-4 w-4 text-purple-500" />
               </div>
               <div>
-                <p className="text-sm font-medium">New extension submitted</p>
-                <p className="text-xs text-muted-foreground">DesignPro X was submitted for review</p>
-                <p className="text-xs text-muted-foreground mt-1">45 minutes ago</p>
+                <p className="text-sm font-medium">Recipe updated</p>
+                <p className="text-xs text-muted-foreground">Pad Thai ingredients modified</p>
+                <p className="text-xs text-muted-foreground mt-1">5 hours ago</p>
               </div>
             </div>
 
@@ -160,134 +171,58 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-sm font-medium">New review</p>
-                <p className="text-xs text-muted-foreground">SumBuddy received a 5-star review</p>
-                <p className="text-xs text-muted-foreground mt-1">1 hour ago</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="bg-primary/20 p-1.5 rounded-full">
-                <TrendingUp className="h-4 w-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm font-medium">Traffic spike</p>
-                <p className="text-xs text-muted-foreground">Unusual traffic detected on Productivity category</p>
-                <p className="text-xs text-muted-foreground mt-1">3 hours ago</p>
+                <p className="text-xs text-muted-foreground">Beef Pho received a 5-star review</p>
+                <p className="text-xs text-muted-foreground mt-1">1 day ago</p>
               </div>
             </div>
           </div>
-
           <button className="w-full mt-4 text-sm text-primary hover:underline">View all activity</button>
         </div>
       </div>
 
-      {/* Bottom section - Popular Extensions and System Status */}
+      {/* Bottom section - Popular Food and System Status */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Popular Extensions - left column, spans 2 columns on large screens */}
+        {/* Popular Food - left column, spans 2 columns on large screens */}
         <div className="bg-card rounded-lg p-6 border border-border lg:col-span-2">
-          <h3 className="text-lg font-bold mb-4">Popular Extensions</h3>
-
+          <h3 className="text-lg font-bold mb-4">Popular Recipes</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Name</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Recipe</th>
                   <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Category</th>
                   <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Rating</th>
-                  <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Downloads</th>
+                  <th className="text-left py-3 px-2 text-sm font-medium text-muted-foreground">Reviews</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-border">
-                  <td className="py-3 px-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
-                        <span className="text-xs font-bold">SB</span>
+                {popularFoods.map((food) => (
+                  <tr key={food.id} className="border-b border-border">
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
+                          <span className="text-xs font-bold">
+                            {food.name
+                              .split(' ')
+                              .map(word => word[0])
+                              .join('')
+                              .toUpperCase()
+                              .slice(0, 2)}
+                          </span>
+                        </div>
+                        <span className="font-medium">{food.name}</span>
                       </div>
-                      <span className="font-medium">SumBuddy</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">Productivity</td>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                      <span>4.7</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">24,532</td>
-                </tr>
-                <tr className="border-b border-border">
-                  <td className="py-3 px-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
-                        <span className="text-xs font-bold">MC</span>
+                    </td>
+                    <td className="py-3 px-2 text-muted-foreground">{food.category}</td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center">
+                        <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
+                        <span>{food.rating.toFixed(1)}</span>
                       </div>
-                      <span className="font-medium">Monica: ChatGPT AI Assistant</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">AI</td>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                      <span>4.8</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">18,975</td>
-                </tr>
-                <tr className="border-b border-border">
-                  <td className="py-3 px-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
-                        <span className="text-xs font-bold">DP</span>
-                      </div>
-                      <span className="font-medium">DesignPicker Pro</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">Design</td>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                      <span>4.9</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">15,421</td>
-                </tr>
-                <tr className="border-b border-border">
-                  <td className="py-3 px-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
-                        <span className="text-xs font-bold">OW</span>
-                      </div>
-                      <span className="font-medium">Obsidian Web Clipper</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">Productivity</td>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                      <span>4.5</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">12,876</td>
-                </tr>
-                <tr>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center">
-                        <span className="text-xs font-bold">RP</span>
-                      </div>
-                      <span className="font-medium">Redplus</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">Marketing</td>
-                  <td className="py-3 px-2">
-                    <div className="flex items-center">
-                      <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 mr-1" />
-                      <span>4.3</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-2 text-muted-foreground">9,543</td>
-                </tr>
+                    </td>
+                    <td className="py-3 px-2 text-muted-foreground">{food.reviews.toLocaleString()}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

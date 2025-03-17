@@ -17,7 +17,7 @@ export default function Header() {
           <div className="bg-primary w-8 h-8 rounded flex items-center justify-center">
             <span className="text-white font-bold">e</span>
           </div>
-          <span className="text-white text-xl font-bold">Extensions 101</span>
+          <span className="text-white text-xl font-bold">Food 101</span>
         </Link>
 
         {/* Desktop Navigation - links to all main pages */}
@@ -37,9 +37,9 @@ export default function Header() {
           <Link href="/blog" className="text-white hover:text-primary transition-colors">
             Blog
           </Link>
-          <Link href="/pricing" className="text-white hover:text-primary transition-colors">
-            Pricing
-          </Link>
+          {/* <Link href="/timeCostOptions" className="text-white hover:text-primary transition-colors">
+            timeCostOptions
+          </Link> */}
           <Link href="/submit" className="text-white hover:text-primary transition-colors">
             Submit
           </Link>
@@ -84,8 +84,8 @@ export default function Header() {
             <Link href="/blog" className="text-white hover:text-primary transition-colors">
               Blog
             </Link>
-            <Link href="/pricing" className="text-white hover:text-primary transition-colors">
-              Pricing
+            <Link href="/timeCostOptions" className="text-white hover:text-primary transition-colors">
+              timeCostOptions
             </Link>
             <Link href="/submit" className="text-white hover:text-primary transition-colors">
               Submit

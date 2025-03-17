@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { extensions, categories } from "@/lib/data"
-import ExtensionCard from "./extension-card"
+import { Food, categories, foods  } from "@/lib/data"
+import FoodCard from "./Food-card"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, Check, Filter } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -17,33 +17,33 @@ const sortOptions = [
   { label: "Sort by Rating (asc)", value: "rating-asc" },
 ]
 
-interface ExtensionGridProps {
+interface FoodGridProps {
   showCategoryFilter?: boolean
   searchTerm?: string
 }
 
-export default function ExtensionGrid({ showCategoryFilter = true, searchTerm = "" }: ExtensionGridProps) {
+export default function FoodGrid({ showCategoryFilter = true, searchTerm = "" }: FoodGridProps) {
   // State for category and sort selection
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [sortOption, setSortOption] = useState(sortOptions[0])
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false)
 
-  // Filter extensions based on selected category and search term
-  const filteredExtensions = extensions.filter((ext) => {
+  // Filter Food based on selected category and search term
+  const filteredFood = foods.filter((food) => {
     // Filter by category
     const matchesCategory =
-      selectedCategory === "All" || ext.category === selectedCategory || ext.tags.includes(selectedCategory)
+      selectedCategory === "All" || food.category === selectedCategory || food.tags.includes(selectedCategory)
 
     // Filter by search term
     const matchesSearch =
       searchTerm === "" ||
-      ext.name.toLowerCase().includes(searchTerm.toLowerCase()) 
+      food.name.toLowerCase().includes(searchTerm.toLowerCase()) 
 
     return matchesCategory && matchesSearch
   })
 
-  // Sort extensions based on selected sort option
-  const sortedExtensions = [...filteredExtensions].sort((a, b) => {
+  // Sort Food based on selected sort option
+  const sortedFood = [...filteredFood].sort((a, b) => {
     switch (sortOption.value) {
       case "time-asc":
         return new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime()
@@ -67,19 +67,19 @@ export default function ExtensionGrid({ showCategoryFilter = true, searchTerm = 
       <div className="container-custom">
        
 
-        {/* Extensions Grid */}
+        {/* Food Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedExtensions.length > 0 ? (
-            sortedExtensions.map((extension) => <ExtensionCard key={extension.id} extension={extension} />)
+          {sortedFood.length > 0 ? (
+            sortedFood.map((Food) => <FoodCard key={Food.id} Food={Food} />)
           ) : (
             <div className="col-span-full text-center py-12">
-              <p className="text-muted-foreground text-lg">No extensions found matching your criteria.</p>
+              <p className="text-muted-foreground text-lg">No Food found matching your criteria.</p>
             </div>
           )}
         </div>
 
-        {/* Pagination - only show if there are extensions */}
-        {sortedExtensions.length > 0 && (
+        {/* Pagination - only show if there are Food */}
+        {sortedFood.length > 0 && (
           <div className="flex justify-center mt-12">
             <div className="flex gap-2">
               <Button variant="outline" className="bg-secondary text-white hover:bg-secondary/80 w-10 h-10 p-0">
