@@ -55,7 +55,7 @@ export default function FoodPage({ params }: FoodPageProps) {
   return (
     <div className="container-custom py-12">
       <Link href="/" className="inline-flex items-center text-primary mb-8">
-        <ArrowLeft className="mr-2 h-4 w-4" /> Back to Food
+        <ArrowLeft className="mr-2 h-4 w-4" /> Back Home
       </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -94,8 +94,14 @@ export default function FoodPage({ params }: FoodPageProps) {
           {/* Release Date */}
           <p className="text-muted-foreground mb-4">Released: {releaseDate}</p>
 
+          {/* Description */}
+          <p className="text-muted-foreground mb-4">{Food.description}</p>
+
+          {/* Ingredients */}
+          <p className="text-muted-foreground mb-4">Ingredients: {Food.ingredients}</p>
+
           {/* Long Description */}
-          <p className="text-muted-foreground mb-6">{Food.recipe || Food.description}</p>
+          <p className="text-muted-foreground mb-6">Recipe: {Food.recipe}</p>
 
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Category</h3>
@@ -116,7 +122,7 @@ export default function FoodPage({ params }: FoodPageProps) {
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-2">Available on</h3>
+            <h3 className="text-lg font-semibold mb-2">Source</h3>
             <div className="flex flex-wrap gap-2">
               {Food.regions.map((platform, index) => (
                 <span key={index} className="bg-secondary text-white px-3 py-1 rounded-full text-sm">
@@ -127,7 +133,7 @@ export default function FoodPage({ params }: FoodPageProps) {
           </div>
 
           <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-lg text-lg w-full">
-            Install Food
+             Learn More
           </Button>
         </div>
       </div>
